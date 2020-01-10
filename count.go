@@ -1,59 +1,45 @@
-
 package main
 
 import (
-	"fmt"
-	"strings"
+"fmt"
+"regexp"
+"sort"
+"strings"
 )
 
 func main() {
-	var dict_size int
-	fmt.Println("Enter the size of the dictionary")
-	fmt.Scan(&dict_size)
-	dict := make([]string, dict_size)
-	for i := 0; i < dict_size; i++ {
-		fmt.Printf("Enter a word")
-		fmt.Scan(&dict[i])
-
-	}
-	var str_size int
-	fmt.Println("How many lines are there?")
-	fmt.Scan(&str_size)
-	str := make([]string, str_size)
-	for i := 0; i < str_size; i++ {
-		fmt.Printf("Enter a string")
-		fmt.Scan(&str[i])
-	}
-	for c := 0; c < str_size; c++ {
-		count := 0
-		for i := 0; i < dict_size; i++ {
-
-			s := dict[i]
-			mp := make(map[string]int)
-			for i := 1; i < len(s)-1; i++ {
-				mp[s[i]]++
-				st := make(map[string]int)
-				for i := 0; i < len(str[c]); i++ {
-					if str[c][i] == s[0] && str[c][i+len(s)-1] == s[len(s)-1] && (i+len(s)-1) < len(str[c]) {
-						mp1 := make(map[string]int)
-						for j := i + 1; j < i+len(s)-1; j++ {
-							mp1[str[c][j]]++
-							if mp1 == mp {
-								var r string = str[c].strings.contains(i, len(s)) // string r is required string
-								st.insert(r)
-
-							}
-
-						}
-					}
-					count += size(st)
-
-				}
-
-			}
-		}
-		fmt.Println("case #", c+1)
-		fmt.Print("%d:", count)
-	}
+//Below needs to be taken from file and put into list
+dictionaryWords := []string{"axpaj", "apxaj", "dnrbt", "pjxdn", "abd"} //getListOfDictionary()
+stringsList := []string{"aapxjdnrbtvldptfzbbdbbzxtndrvjblnzjfpvhdhhpxjdnrbt"} //getListStrings()
+var count int
+for j, stringsLine := range stringsList {
+count = 0
+for _, value := range dictionaryWords {
+// i am ignoring error here
+isMatching, _ := regexp.MatchString(value, stringsLine)
+if isMatching {
+count++
+continue
 }
 
+dictWordStartIndex := value[0]
+dictWordLenIndex := len(value) - 1
+dictWordEndIndex := value[dictWordLenIndex]
+dictionarysorted := strings.Split(value, "")
+sort.Strings(dictionarysorted)
+for i := 0; i < len(stringsLine)-dictWordLenIndex; i++ {
+if stringsLine[i] == dictWordStartIndex && stringsLine[i+dictWordLenIndex] == dictWordEndIndex {
+lenOfString := strings.Split(stringsLine[i:i+dictWordLenIndex+1], "")
+sort.Strings(lenOfString)
+if strings.Join(lenOfString, "") == strings.Join(dictionarysorted, "") {
+count++
+break
+}
+
+}
+
+}
+}
+fmt.Println("case: ", j+1, count)
+}
+}
