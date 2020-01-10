@@ -15,7 +15,6 @@ var count int
 for j, stringsLine := range stringsList {
 count = 0
 for _, value := range dictionaryWords {
-// i am ignoring error here
 isMatching, _ := regexp.MatchString(value, stringsLine)
 if isMatching {
 count++
