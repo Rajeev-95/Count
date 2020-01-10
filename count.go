@@ -11,9 +11,8 @@ func main() {
 //Below needs to be taken from file and put into list
 dictionaryWords := []string{"axpaj", "apxaj", "dnrbt", "pjxdn", "abd"} //getListOfDictionary()
 stringsList := []string{"aapxjdnrbtvldptfzbbdbbzxtndrvjblnzjfpvhdhhpxjdnrbt"} //getListStrings()
-var count int
 for j, stringsLine := range stringsList {
-count = 0
+  count := 0
 for _, value := range dictionaryWords {
 isMatching, _ := regexp.MatchString(value, stringsLine)
 if isMatching {
